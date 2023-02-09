@@ -1,5 +1,7 @@
 // import PropTypes from 'prop-types';
 
+
+
 const ContactList = ({ contacts, onRemoveContact }) => (
   <ul>
     {contacts.map(({ id, name, number }) => (
@@ -7,7 +9,7 @@ const ContactList = ({ contacts, onRemoveContact }) => (
       key={id} 
       >
         <p>
-          {name},{number}
+          {name}, {number}
         </p>
         <button
           type="submit"
