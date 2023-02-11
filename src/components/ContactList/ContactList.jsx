@@ -3,25 +3,26 @@
 
 
 const ContactList = ({ contacts, onRemoveContact }) => {
-  return(
-  <ul>
-    {contacts.map(({ id, name, number }) => (
-      <li 
-      key={id} 
-      >
-        <p>
-          {name}, {number}
-        </p>
-        <button
-          type="submit"
-          onClick={() => onRemoveContact(id)}
+  return (
+    <ul>
+      {contacts.map(({ id, name, number }) => (
+        <li
+          key={id}
         >
-          del
-        </button>
-      </li>
-    ))}
-  </ul>
-)};
+          <p>
+            {name}, {number}
+          </p>
+          <button
+            type="submit"
+            onClick={() => onRemoveContact(id)}
+          >
+            del
+          </button>
+        </li>
+      ))}
+    </ul>
+  )
+};
 
 // ContactList.propTypes = {
 //   contacts: PropTypes.arrayOf(
