@@ -2,7 +2,8 @@
 
 
 
-const ContactList = ({ contacts, onRemoveContact }) => (
+const ContactList = ({ contacts, onRemoveContact }) => {
+  return(
   <ul>
     {contacts.map(({ id, name, number }) => (
       <li 
@@ -20,7 +21,7 @@ const ContactList = ({ contacts, onRemoveContact }) => (
       </li>
     ))}
   </ul>
-);
+)};
 
 // ContactList.propTypes = {
 //   contacts: PropTypes.arrayOf(

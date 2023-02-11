@@ -3,6 +3,7 @@ import ContactList from './ContactList/ContactList';
 import ContactForm from './ContactForm';
 import Filter from './Filter';
 import { useDispatch, useSelector } from 'react-redux';
+import { nanoid } from 'nanoid';
 import { FILTER } from '../redux/slice'
 import { fetchContacts, addContact, deleteContact } from 'redux/thunk';
 
@@ -17,13 +18,22 @@ const App = () => {
   const contacts = useSelector(state => state.contacts.items);
   const isLoading = useSelector(state => state.contacts.isLoading);
 
-  const handleAddContact = (name, number) => {
-    if (contacts.filter(contact => contact.name.toLowerCase().includes(filtered))) {
-      alert(`name ${name} already exists`);
+  useEffect(() => {
+    dispatch(fetchContacts());
+  }, [dispatch]);
+
+  const handleAddContact = (name, number) =>{
+    if (contacts.find(contact => contact.name === name)) {
+      alert(`${name} is already in contacts.`);
       return;
     }
-    dispatch(addContact(name, number));
-  };
+    const newContact = {
+      id: nanoid(),
+      name,
+      number,
+    };
+    dispatch(addContact(newContact));
+  }
 
   const handleRemoveContact = contactId => {
     dispatch(deleteContact(contactId));
@@ -37,16 +47,14 @@ const App = () => {
     return contacts.filter(contact => contact.name.toLowerCase().includes(filtered));
   };
 
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+
 
   return (
     <>
       <h1>Phonebook</h1>
-      <ContactForm onSubmit={handleAddContact} />
+      <ContactForm onSubmit={handleAddContact}/>
       <h2>Contacts</h2>
-      <div>All contacts: {isLoading? '///' :contacts.length}</div>
+      <div>All contacts: {isLoading? '#' :contacts.length}</div>
       <Filter value={filtered} onChange={handleChangeFilter} />
       <ContactList
         contacts={handleFilterContacts()}
